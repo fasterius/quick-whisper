@@ -17,6 +17,21 @@ directly to your clipboard.
 - `whisper.cpp`
 - `pbcopy` (MacOS), `wl-copy` (Linux Wayland) or `xclip` (Linux X11)
 
+## Installation
+
+Clone this repository and copy/symlink the `quick-whisper.sh` script in your
+`PATH`:
+
+```bash
+git clone git@github.com:fasterius/quick-whisper.git
+cp quick-whisper.sh ~/.local/bin
+```
+
+You might also want to add a global key bind to this script so that you can run
+in from any application using _e.g._ Automator on MacOS, or your Desktop
+Environment's / Window Manager's key bind utilities on Linux (in which case you
+can use the full path without copying/symlinking to your `PATH`).
+
 ## Usage
 
 1. Run the script.
@@ -36,7 +51,3 @@ WHISPER_DIR="${HOME}/opt/whisper.cpp"  # Path to whisper.cpp build
 MODEL="ggml-base.en"                   # Model filename (without .bin extension)
 SILENCE="1.5"                          # Seconds of silence before auto-stop
 ```
-
-You might also want to add a global key bind to this script so that you can run
-in from any application using _e.g._ Automator on MacOS, or your Desktop
-Environment's / Window Manager's key bind utilities on Linux.
