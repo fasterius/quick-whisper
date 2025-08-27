@@ -34,20 +34,11 @@ can use the full path without copying/symlinking to your `PATH`).
 
 ## Usage
 
+```bash
+quick-whisper.sh [-w WHISPER_DIR] [-o OUTPUT_FILE] [-m MODEL] [-s SILENCE_DURATION]"
+```
+
 1. Run the script.
 2. Speak into your microphone.
 3. After a configurable time of silence, recording is stopped and transcribed.
-4. The final text is now copied to your clipboard.
-
-The recordings and transcriptions are stored in `/tmp` and are overwritten after
-each execution of the script.
-
-## Configuration
-
-You can tweak a few variables at the top of the script:
-
-```bash
-WHISPER_DIR="${HOME}/opt/whisper.cpp"  # Path to whisper.cpp build
-MODEL="ggml-base.en"                   # Model filename (without .bin extension)
-SILENCE="1.5"                          # Seconds of silence before auto-stop
-```
+4. The final text is now copied to your clipboard and a sound is played.
