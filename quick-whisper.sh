@@ -1,12 +1,37 @@
 #!/usr/bin/env bash
 
-# ---------------------------- Input variables -------------------------------
+# This script records audio from the system microphone, automatically stops
+# after a short period of silence, transcribes the recording using
+# `whisper.cpp` and places the resulting text into the clipboard.
+#
+# Dependencies:
+#   - sox
+#   - whisper.cpp
+#   - pbcopy
+#
+# Configuration:
+#   - WHISPER_DIR: Path to the whisper.cpp installation directory
+#   - MODEL      : Model name (without the .bin extension) in whisper.cpp/models
+#   - SILENCE    : Duration of silence (in seconds) after which recording stops
+#
+# Notes:
+#   - Audio is temporarily stored in /tmp/record.wav and removed on overwrite.
+#   - Transcribed text is written to /tmp/whisper_out.txt before copying.
+#   - You might want to add a global hotkey to this script so you can run it
+#     from any application using e.g. Automator on MacOS.
+#
+# Example:
+#   ./quick-whisper.sh
+#   # Speak: "Hello world"
+#   # Clipboard contains: "Hello world"
+
+# ----------------------------- Configuration --------------------------------
 
 WHISPER_DIR="${HOME}/opt/whisper.cpp"
 MODEL="ggml-base.en"
 SILENCE="1.5"
 
-# ----------------------------------------------------------------------------
+# -------------------- Do not change beyond this point -----------------------
 
 # Bash strict mode
 set -euo pipefail
