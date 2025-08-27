@@ -87,8 +87,10 @@ ${WHISPER_DIR}/build/bin/whisper-cli \
     --output-file "${OUTPUT_DIR}/whisper_out" \
     --output-txt
 
-# Copy to clipboard
-cat "${OUTPUT_DIR}/whisper_out.txt" | "$CLIPBOARD_CMD"
+# Format text and copy to clipboard
+cat "${OUTPUT_DIR}/whisper_out.txt" \
+    | paste -s - \
+    | "$CLIPBOARD_CMD"
 
 # Play sound to notify the user that recording is finished
 play -n synth .1 sin 667 gain -15 &> /dev/null
