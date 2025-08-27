@@ -7,7 +7,7 @@
 # Dependencies:
 #   - sox
 #   - whisper.cpp
-#   - pbcopy
+#   - pbcopy (MacOS), wl-copy (Linux Wayland) or xclip (Linux X11)
 #
 # Configuration:
 #   - WHISPER_DIR: Path to the whisper.cpp installation directory
@@ -36,6 +36,18 @@ SILENCE="1.5"
 # Bash strict mode
 set -euo pipefail
 
+# Check for clipboard utility availability
+if command -v pbcopy &> /dev/null; then
+    CLIPBOARD_CMD="pbcopy" # MacOS
+elif command -v wl-copy &> /dev/null; then
+    CLIPBOARD_CMD="wl-copy" # Linux Wayland
+elif command -v xclip &> /dev/null; then
+    CLIPBOARD_CMD="xclip -selection clipboard" # Linux X11
+else
+    echo "Error: no clipboard utility found" >&2
+    exit 1
+fi
+
 # Record until there is silence for the specified number of seconds
 # Resample down to 16kHz, as that's what `whisper.cpp` is trained on
 rec \
@@ -54,4 +66,4 @@ ${WHISPER_DIR}/build/bin/whisper-cli \
     --output-txt
 
 # Copy to clipboard
-cat /tmp/whisper_out.txt | pbcopy
+cat /tmp/whisper_out.txt | "$CLIPBOARD_CMD"
